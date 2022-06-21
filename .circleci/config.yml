@@ -1,15 +1,33 @@
 version: 2.1
 jobs:
-  print_devops_eng_name:
+  save_hello_world_output:
     docker:
       - image: cimg/base:stable
     steps:
       - run:
-          name: "Print Devops Engineer Name"
+          name: "Save string ot text file"
           command: |
-            echo $DEV_NAME
+            echo "Hello World" > output.txt
+      - persist_to_workspace:
+          root: /tmp/workspace
+          paths:
+            - output.txt
+
+  print_output_file:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: "Print out content in file"
+          command: |
+            cat output.txt
 
 workflows:
-  say-devops-name-workflow:
+  sharing-file-workflow:
     jobs:
-      - print_devops_eng_name
+      - save_hello_world_output
+      - print_output_file:
+          requires:
+            - save_hello_world_output
