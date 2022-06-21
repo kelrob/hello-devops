@@ -9,7 +9,7 @@ jobs:
           command: |
             echo "Hello World" > output.txt
       - persist_to_workspace:
-          root: /tmp/workspace
+          root: .
           paths:
             - output.txt
 
@@ -18,7 +18,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: /tmp/workspace
+          at: .
       - run:
           name: "Print out content in file"
           command: |
