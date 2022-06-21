@@ -1,25 +1,14 @@
 version: 2.1
 jobs:
-  print_hello:
+  print_devops_eng_name:
     docker:
       - image: cimg/base:stable
     steps:
       - run:
-          name: "Print hello"
-          command: "echo Hello!"
-
-  print_world:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - run:
-          name: "Print world"
-          command: "echo World!"
+          name: "Print Devops Engineer Name"
+          command: echo $DEV_NAME
 
 workflows:
-  say-hello-workflow:
+  say-devops-name-workflow:
     jobs:
-      - print_hello
-      - print_world:
-          requires:
-            - print_hello
+      - print_devops_eng_name
