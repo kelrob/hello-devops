@@ -6,7 +6,7 @@ jobs:
     steps:
       - run:
           name: "Print Devops Engineer Name"
-          command: echo $DEV_NAME
+          command: echo ${DEV_NAME}
 
 workflows:
   say-devops-name-workflow:
