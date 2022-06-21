@@ -8,18 +8,18 @@ jobs:
   print_hello:
     docker:
       - image: cimg/base:stable
-		steps:
-			- checkout
-			- run:
+    steps:
+      - checkout
+      - run:
           name: "Print hello"
           command: "echo Hello!"
-	
-	print_world:
+
+  print_world:
     docker:
       - image: cimg/base:stable
-		steps:
-			- checkout
-			- run:
+    steps:
+      - checkout
+      - run:
           name: "Print world"
           command: "echo World!"
 
@@ -29,5 +29,5 @@ workflows:
   say-hello-workflow:
     jobs:
       - print_hello
-			- print_world:
-				  requires: [print_hello]
+      - print_world:
+          requires: [print_hello]
