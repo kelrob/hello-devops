@@ -9,7 +9,7 @@ jobs:
           command: |
             echo "Hello World" > output.txt
       - persist_to_workspace:
-          root: ~/
+          root: .
           paths:
             - output.txt
 
@@ -22,7 +22,7 @@ jobs:
       - run:
           name: "Print out content in file"
           command: |
-            cat ~/output.txt
+            cat output.txt
 
 workflows:
   sharing-file-workflow:
