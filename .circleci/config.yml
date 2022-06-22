@@ -7,7 +7,7 @@ jobs:
     steps:
       - run:
           name: "Echo a fake env variable"
-          command: $CIRCLE_FAKE_DEFAULT_ID
+          command: echo 127.0.0.1 devhost | sudo tee -a /etc/hosts
 
       - run:
           name: Notify on Fail
