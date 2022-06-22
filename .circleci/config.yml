@@ -1,51 +1,20 @@
 version: 2.1
 
-commands:
-  udacity_command:
-    description: "A Simple Command to print pipeline Id"
-    parameters:
-      pipelineId:
-        type: string
-    steps:
-      - run: echo << parameters.pipelineId >>
-
 jobs:
-  save_hello_world_output:
+  force_a_fail:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:13.8.0
     steps:
       - run:
-          name: "Save string ot text file"
-          command: |
-            echo "Hello World" > output.txt
-      - persist_to_workspace:
-          root: .
-          paths:
-            - output.txt
+          name: "Echo a fake env variable"
+          command: $CIRCLE_FAKE_DEFAULT_ID
 
-  print_output_file:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - attach_workspace:
-          at: .
       - run:
-          name: "Print out content in file"
-          command: |
-            cat output.txt
-
-  print_pipeline_id:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - udacity_command:
-          pipelineId: $CIRCLE_WORKFLOW_ID
+          name: Notify on Fail
+          command: echo "This was an intentional Failure"
+          when: on_fail
 
 workflows:
-  sharing-file-workflow:
+  force_error_workflow:
     jobs:
-      - save_hello_world_output
-      - print_output_file:
-          requires:
-            - save_hello_world_output
-      - print_pipeline_id
+      - force_a_fail
