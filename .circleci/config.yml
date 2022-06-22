@@ -40,7 +40,6 @@ jobs:
       - image: cimg/base:stable
     steps:
       - udacity_command:
-          pipelineId: $CIRCLE_WORKFLOW_ID
 
 workflows:
   sharing-file-workflow:
