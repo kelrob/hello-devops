@@ -1,4 +1,19 @@
 version: 2.1
+
+commands:
+  udacity_command:
+    docker:
+      - image: cimg/base:stable
+    commands:
+      print_pipeline_id:
+        description: "A Simple Command to print pipeline Id"
+        parameters:
+          pipelineId:
+            type: string
+            default: $CIRCLE_WORKFLOW_ID
+        steps:
+          - run: echo << parameters.pipelineId >>
+
 jobs:
   save_hello_world_output:
     docker:
@@ -24,6 +39,13 @@ jobs:
           command: |
             cat output.txt
 
+  print_pipeline_id:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - udacity_command:
+          pipelineId: $CIRCLE_WORKFLOW_ID
+
 workflows:
   sharing-file-workflow:
     jobs:
@@ -31,3 +53,4 @@ workflows:
       - print_output_file:
           requires:
             - save_hello_world_output
+      - print_pipeline_id
