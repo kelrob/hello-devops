@@ -27,6 +27,7 @@ jobs:
               --region us-east-1
 
 workflow:
-  jobs:
-    - build
-    - create_infrastructure
+  infra-workflow:
+    jobs:
+      - build
+      - create_infrastructure
