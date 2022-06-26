@@ -29,5 +29,5 @@ jobs:
 workflow:
   infra-workflow:
     jobs:
-      - build
       - create_infrastructure
+      - build
