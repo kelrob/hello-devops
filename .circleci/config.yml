@@ -30,4 +30,3 @@ workflow:
   infra-workflow:
     jobs:
       - create_infrastructure
-      - build
